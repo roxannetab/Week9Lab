@@ -8,7 +8,7 @@ package services;
 import java.util.List;
 import models.User;
 import dataaccess.UserDB;
-import models.Role;
+
 
 /**
  *

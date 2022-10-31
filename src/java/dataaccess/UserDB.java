@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package dataaccess;
 
 import java.sql.Connection;
@@ -15,10 +9,10 @@ import java.util.List;
 import models.Role;
 import models.User;
 
-/**
- *
- * @author RT
- */
+/*
+*
+*@author RT
+*/
 
 public class UserDB {
     
@@ -153,4 +147,6 @@ public class UserDB {
             cp.freeConnection(con);
         }
     }
+    
 }
+

@@ -14,16 +14,16 @@ import models.Role;
  */
 public class RoleService {
 
-    public Role get(int roleId) throws Exception {
+    public List<Role> getRoles() throws Exception {
         RoleDB roleDB = new RoleDB();
-        Role role = roleDB.get(roleId);
-        return role;
+        List<Role> roles = roleDB.getRoles();
+        return roles;
     }
 
-    public List<Role> getAll() throws Exception {
+    public Role getRole(int roleId) throws Exception {
         RoleDB roleDB = new RoleDB();
-        List<Role> roles = roleDB.getAll();
-        return roles;
+        Role role = roleDB.getRole(roleId);
+        return role;
     }
 
     public void insert(int roleId, String roleName) throws Exception {
@@ -44,4 +44,6 @@ public class RoleService {
         RoleDB roleDB = new RoleDB();
         roleDB.update(role);
     }
+    
+    
 }
