@@ -12,31 +12,43 @@ import java.io.Serializable;
  * @author RT
  */
 
-public class Role implements Serializable{
-    private int roleId;
-    private String roleName;
+public class Role implements Serializable {
+
+    int id;
+    String name;
 
     public Role() {
     }
 
-    public Role(int roleId, String roleName) {
-        this.roleId = roleId;
-        this.roleName = roleName;
+    public Role(int id) {
+        this.id = id;
+        if (id == 1) {
+
+            this.name = "System Admin";
+        } else if (id == 2) {
+            this.name = "Regular User";
+
+        }
     }
 
-    public int getRoleId() {
-        return roleId;
+    public Role(int id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
-    public void setRoleId(int roleId) {
-        this.roleId = roleId;
+    public int getId() {
+        return id;
     }
 
-    public String getRoleName() {
-        return roleName;
+    public String getName() {
+        return name;
     }
 
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

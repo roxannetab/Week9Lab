@@ -14,36 +14,19 @@ import models.Role;
  */
 public class RoleService {
 
-    public List<Role> getRoles() throws Exception {
+    public List<Role> getAll() throws Exception {
+
         RoleDB roleDB = new RoleDB();
-        List<Role> roles = roleDB.getRoles();
+        List<Role> roles = roleDB.getAll();
+
         return roles;
     }
 
-    public Role getRole(int roleId) throws Exception {
+    public Role get(int id) throws Exception {
+
         RoleDB roleDB = new RoleDB();
-        Role role = roleDB.getRole(roleId);
+        Role role = roleDB.get(id);
+
         return role;
     }
-
-    public void insert(int roleId, String roleName) throws Exception {
-        Role role = new Role(roleId, roleName);
-        RoleDB roleDB = new RoleDB();
-        roleDB.insert(role);
-    }
-
-    public void update(int roleId, String roleName) throws Exception {
-        Role role = new Role(roleId, roleName);
-        RoleDB roleDB = new RoleDB();
-        roleDB.update(role);
-    }
-
-    public void delete(int roleId) throws Exception {
-        Role role = new Role();
-        role.setRoleId(roleId);
-        RoleDB roleDB = new RoleDB();
-        roleDB.update(role);
-    }
-    
-    
 }

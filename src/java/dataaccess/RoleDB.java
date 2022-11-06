@@ -12,17 +12,17 @@ import models.Role;
  * @author RT
  */
 public class RoleDB {
-    
-    public List<Role> getRoles() throws Exception {
+
+    public List<Role> getAll() throws Exception {
+
         List<Role> roles = new ArrayList<>();
         ConnectionPool cp = ConnectionPool.getInstance();
         Connection con = cp.getConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
-        String sql = "SELECT * FROM role";
-        
+        String sql = "SELECT * FROM role;";
+
         try {
-            
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -31,36 +31,100 @@ public class RoleDB {
                 Role role = new Role(roleId, roleName);
                 roles.add(role);
             }
+
+        } catch (Exception e) {
+            System.out.println(e);
         } finally {
+            DBUtil.closeResultSet(rs);
             DBUtil.closePreparedStatement(ps);
             cp.freeConnection(con);
         }
+
         return roles;
     }
 
-    public Role getRole(int roleId) throws Exception{
-        Role role = null;
+    public Role get(int id) throws Exception {
+
         ConnectionPool cp = ConnectionPool.getInstance();
         Connection con = cp.getConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
-        String sql = "SELECT * FROM role WHERE role_name=?";
-        
+        String sql = "SELECT * FROM role WHERE role_id = ?";
+
+        Role role = null;
+
         try {
-            
             ps = con.prepareStatement(sql);
-            ps.setInt(1, roleId);
+            ps.setInt(1, id);
             rs = ps.executeQuery();
             if (rs.next()) {
-                roleId = rs.getInt(1);
-                String roleName = rs.getString(2);
-                role = new Role(roleId, roleName);
+
+                int role_id = rs.getInt(1);
+                String role_name = rs.getString(2);
+
+                role = new Role(role_id, role_name);
             }
+        } catch (Exception e) {
+        } finally {
+            DBUtil.closePreparedStatement(ps);
+            DBUtil.closeResultSet(rs);
+            cp.freeConnection(con);
+        }
+
+        return role;
+    }
+
+    public void insert(Role role) throws Exception {
+        ConnectionPool cp = ConnectionPool.getInstance();
+        Connection con = cp.getConnection();
+        PreparedStatement ps = null;
+        String sql = "INSERT INTO role (role_id,role_name) VALUES (?,?)";
+
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, role.getId());
+            ps.setString(2, role.getName());
+            ps.executeUpdate();
+        } catch (Exception e) {
         } finally {
             DBUtil.closePreparedStatement(ps);
             cp.freeConnection(con);
         }
-        
-        return role;
     }
+
+    public void update(Role role) throws Exception {
+        ConnectionPool cp = ConnectionPool.getInstance();
+        Connection con = cp.getConnection();
+        PreparedStatement ps = null;
+        String sql = "UPDATE role SET role_id = ?, role_name = ? WHERE role_id = ?";
+
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(2, role.getName());
+            ps.setInt(2, role.getId());
+            ps.executeUpdate();
+        } catch (Exception e) {
+        } finally {
+            DBUtil.closePreparedStatement(ps);
+            cp.freeConnection(con);
+        }
+    }
+
+    public void delete(Role role) throws Exception {
+        ConnectionPool cp = ConnectionPool.getInstance();
+        Connection con = cp.getConnection();
+        PreparedStatement ps = null;
+        String sql = "DELETE FROM role WHERE role_id = ?";
+
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, role.getId());
+            ps.executeUpdate();
+        } catch (Exception e) {
+        } finally {
+            DBUtil.closePreparedStatement(ps);
+            cp.freeConnection(con);
+        }
+    }
+
 }

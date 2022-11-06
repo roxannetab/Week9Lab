@@ -1,24 +1,27 @@
 package dataaccess;
 
+import java.sql.*;
 import javax.sql.DataSource;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import java.sql.*;
+
+
 
 public class ConnectionPool {
+    
     private static ConnectionPool pool = null;
     private static DataSource dataSource = null;
 
     private ConnectionPool() {
         try {
             InitialContext ic = new InitialContext();
-            dataSource = (DataSource) ic.lookup("java:/comp/env/jdbc/userdb");
+            dataSource = (DataSource) 
+                ic.lookup("java:/comp/env/jdbc/userdb");
         } catch (NamingException e) {
             System.out.println(e);
         }
     }
-
-    public static synchronized ConnectionPool getInstance() {
+public static synchronized ConnectionPool getInstance() {
         if (pool == null) {
             pool = new ConnectionPool();
         }
