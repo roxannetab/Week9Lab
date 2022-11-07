@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package servlets;
 
 import java.io.IOException;
@@ -195,7 +190,8 @@ public class UserServlet extends HttpServlet {
         RoleService roleService = new RoleService();
         for (int i = 0; i < users.size(); i++) {
 
-            roleList.add(roleService.get(users.get(i).getRole()).getName());
+       
+         
         }
 
         return roleList;
